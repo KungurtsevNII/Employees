@@ -20,7 +20,7 @@ namespace Employees.API.Configuration
                 });
 
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                var commentsFileName = Assembly.GetExecutingAssembly().GetName().Name + ".XML";
+                var commentsFileName = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
                 var commentsFile = Path.Combine(baseDirectory, commentsFileName);
                 options.IncludeXmlComments(commentsFile);
             });
@@ -34,7 +34,7 @@ namespace Employees.API.Configuration
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sample CQRS API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employees API V1");
             });
 
             return app;

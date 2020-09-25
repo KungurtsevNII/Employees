@@ -19,7 +19,7 @@ namespace Employees.API.Controllers
         }
         
         /// <summary>
-        /// Возвращает информацию о аккаунте пользователя.
+        /// Возвращает информацию о аккаунте пользователя по ID.
         /// </summary>
         /// <param name="id">ID аккаунта</param>
         /// <param name="ct"></param>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Employees.API</name>
+    </assembly>
+    <members>
+        <member name="M:Employees.API.Controllers.AccountsController.GetAccountDetail(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Возвращает информацию о аккаунте пользователя.
+            </summary>
+            <param name="id">ID аккаунта</param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

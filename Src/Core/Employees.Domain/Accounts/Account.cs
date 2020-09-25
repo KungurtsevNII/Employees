@@ -9,5 +9,7 @@ namespace Employees.Domain.Accounts
         public string PhoneNumber { get; set; }
         public bool IsPhoneConfirm { get; set; }
         public bool IsEmailConfirm { get; set; }
+        
+        public static string EntityName = "Аккаунт";
     }
 }

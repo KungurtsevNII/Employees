@@ -31,7 +31,7 @@ namespace Employees.Application.Accounts.Commands.ConfirmationEmail
             account.ConfirmEmail();
             await _accountsRepository.SetIsEmailConfirm(account.IsEmailConfirm, account.Id);
             
-            _logger.LogInformation($"Email - {command.Email} подтвержден.");
+            _logger.LogInformation($"Email - {account.Email} подтвержден.");
             
             return Unit.Value;
         }

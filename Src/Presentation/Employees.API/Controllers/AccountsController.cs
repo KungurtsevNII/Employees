@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Employees.Application.Accounts.Commands.ConfirmationEmail;
 using Employees.Application.Accounts.Commands.RegisterAccount;
 using Employees.Application.Accounts.Queries.GetAccountsDetails;
 using MediatR;
@@ -43,6 +44,22 @@ namespace Employees.API.Controllers
         public Task RegisterAccount(
             [FromBody] RegisterAccountCommand request, 
             CancellationToken ct = default)
+        {
+            return _mediator.Send(request, ct);
+        }
+
+        /// <summary>
+        /// Подтвердить Email аккаунта. 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        [Route("confirm-email")]
+        [HttpPut]
+        public Task ConfirmEmail(
+            [FromBody] ConfirmationEmailCommand request,
+            CancellationToken ct = default
+        )
         {
             return _mediator.Send(request, ct);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Employees.Domain.Accounts
 {
@@ -9,7 +10,12 @@ namespace Employees.Domain.Accounts
         public string PhoneNumber { get; set; }
         public bool IsPhoneConfirm { get; set; }
         public bool IsEmailConfirm { get; set; }
-        
-        public static string EntityName = "Аккаунт";
+
+        public const string EntityName = "Аккаунт";
+
+        public void ConfirmEmail()
+        {
+            IsEmailConfirm = true;
+        } 
     }
 }

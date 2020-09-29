@@ -20,5 +20,13 @@
             <param name="ct"></param>
             <returns></returns>
         </member>
+        <member name="M:Employees.API.Controllers.AccountsController.ConfirmEmail(Employees.Application.Accounts.Commands.ConfirmationEmail.ConfirmationEmailCommand,System.Threading.CancellationToken)">
+            <summary>
+            Подтвердить Email аккаунта. 
+            </summary>
+            <param name="request"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

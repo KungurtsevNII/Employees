@@ -33,17 +33,15 @@ namespace Employees.Application.Accounts.Commands.RegisterAccount
                 throw new BadRequestException($"Телефон - {command.PhoneNumber} уже есть в системе.");
             }
 
-            var id = Guid.NewGuid();
             await _accountsRepository.CreateAsync(new Account
             {
-                Id = id,
                 Email = command.Email,
                 PhoneNumber = command.PhoneNumber,
                 IsEmailConfirm = false,
                 IsPhoneConfirm = false
             });
             
-            _logger.LogInformation($"Успешно создан пользователь с ID - {id}");
+            _logger.LogInformation($"Успешно создан пользователь с Email - {command.Email}");
             
             return Unit.Value;
         }

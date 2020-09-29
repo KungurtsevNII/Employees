@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using Employees.Domain.Accounts;
 using Employees.Infrastructure.Database;
-using Microsoft.Extensions.Configuration;
 
 namespace Employees.Infrastructure.Repositories
 {
@@ -23,8 +20,20 @@ namespace Employees.Infrastructure.Repositories
         {
             using var connection = _sqlConnectionFactory.GetConnection();
             connection.Open();
-            return await connection.QueryFirstAsync<Account>("SELECT * FROM Accounts WITH(NOLOCK) WHERE Id = @accountId",
+            return await connection.QueryFirstAsync<Account>(
+                @"SELECT Id, Email, Phonenumber, IsPhonenumberConfirm, IsEmailConfirm
+                       FROM Accounts WITH(NOLOCK) WHERE Id = @accountId",
                 new {accountId});
+        }
+
+        public async Task<Account> GetByEmailAsync(string email)
+        {
+            using var connection = _sqlConnectionFactory.GetConnection();
+            connection.Open();
+            return await connection.QueryFirstAsync<Account>(
+                @"SELECT Id, Email, Phonenumber, IsPhonenumberConfirm, IsEmailConfirm
+                       FROM Accounts WITH(NOLOCK) WHERE Email = @email",
+                new {email});
         }
 
         public async Task<bool> IsExistsAsync(Guid accountId)
@@ -66,19 +75,30 @@ namespace Employees.Infrastructure.Repositories
             connection.Open();
             var sql =
                 @"INSERT INTO [dbo].[Accounts]
-                    (Id,
-                     Email,
+                    (Email,
                      Phonenumber,
                      IsPhonenumberConfirm,
                      IsEmailConfirm)
                   VALUES
-                    (@Id,
-                     @Email,
+                    (@Email,
                      @PhoneNumber,
                      @IsPhoneConfirm,
                      @IsEmailConfirm)";
 
             await connection.ExecuteAsync(sql, account);
+        }
+
+        public async Task SetIsEmailConfirm(bool isEmailConfirm, Guid accountId)
+        {
+            using var connection = _sqlConnectionFactory.GetConnection();
+            connection.Open();
+            var sql =
+                @"UPDATE [dbo].[Accounts]
+                  SET IsEmailConfirm = @isEmailConfirm
+                  WHERE Id = @accountId";
+
+            var sqlParams = new {IsEmailConfirm = isEmailConfirm, AccountId = accountId};
+            await connection.ExecuteAsync(sql, sqlParams);
         }
     }
 }

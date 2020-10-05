@@ -13,7 +13,7 @@ namespace Employees.Domain.Accounts
 
         public const string EntityName = "Аккаунт";
 
-        public void ConfirmEmail()
+        public virtual void ConfirmEmail()
         {
             IsEmailConfirm = true;
         } 

@@ -1,7 +1,6 @@
 ﻿using System;
 using Autofac.Extras.Moq;
 using AutoFixture;
-using Employees.Application.Accounts.Commands.ConfirmationEmail;
 using Microsoft.Extensions.Logging;
 using Moq;
 

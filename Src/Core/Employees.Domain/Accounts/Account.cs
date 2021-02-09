@@ -16,6 +16,6 @@ namespace Employees.Domain.Accounts
         public virtual void ConfirmEmail()
         {
             IsEmailConfirm = true;
-        } 
+        }
     }
 }

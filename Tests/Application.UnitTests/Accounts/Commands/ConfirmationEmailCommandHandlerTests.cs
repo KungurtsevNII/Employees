@@ -35,26 +35,29 @@ namespace Application.UnitTests.Accounts.Commands
         {
             // Arrange
             var command = _fixture.Create<ConfirmationEmailCommand>();
-            var mockAccount = _mock.Mock<Account>();
+            var account = _fixture.Build<Account>()
+                .With(x => x.Email, command.Email)
+                .With(x => x.IsEmailConfirm, false)
+                .Create();
                 
             _mock.Mock<IAccountsRepository>()
                 .Setup(x => x.IsExistsByEmailAsync(command.Email))
                 .ReturnsAsync(true);
             _mock.Mock<IAccountsRepository>()
                 .Setup(x => x.GetByEmailAsync(command.Email))
-                .ReturnsAsync(mockAccount.Object);
+                .ReturnsAsync(account);
             
             // Act
             await Sut.Handle(command, CancellationToken.None);
 
             // Assert
+            Assert.Equal(command.Email, account.Email);
+
             _mock
                 .Mock<IAccountsRepository>()
-                .Verify(x => x.SetIsEmailConfirm(mockAccount.Object.IsEmailConfirm, mockAccount.Object.Id), Times.Once);
+                .Verify(x => x.SetIsEmailConfirm(account.IsEmailConfirm, account.Id), Times.Once);
 
-            mockAccount.Verify(x => x.ConfirmEmail(), Times.Once);
-            
-            LoggerMessageVerify<ConfirmationEmailCommandHandler>(LogLevel.Information, $"Email - {mockAccount.Object.Email} подтвержден.");
+            LoggerMessageVerify<ConfirmationEmailCommandHandler>(LogLevel.Information, $"Email - {account.Email} подтвержден.");
         } 
     }
 }

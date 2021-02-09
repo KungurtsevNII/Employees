@@ -1,3 +1,4 @@
+using App.Metrics.Formatters.Prometheus;
 using Employees.API.Configuration;
 using Employees.Application;
 using Employees.Application.Configuration.Commands;
@@ -29,9 +30,12 @@ namespace Employees.API
             services.AddControllers()
                 .AddNewtonsoftJson()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining(typeof(ICommandHandler<>)));;
+            
             services.AddHealthChecks()
                 .AddSqlServer(_configuration.GetConnectionString("EmployeesDB"));
 
+            services.AddMetrics();
+            
             services.AddSwaggerDocumentation();
         }
 

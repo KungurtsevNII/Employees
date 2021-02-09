@@ -41,7 +41,7 @@ namespace Employees.Application.Accounts.Commands.RegisterAccount
                 IsPhoneConfirm = false
             });
             
-            _logger.LogInformation($"Успешно создан пользователь с Email - {command.Email}");
+            _logger.LogInformation("Успешно создан пользователь с Email - {Email} и номером телефона - {PhoneNumber}", command.Email, command.PhoneNumber);
             
             return Unit.Value;
         }

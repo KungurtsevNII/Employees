@@ -13,7 +13,5 @@ namespace Employees.Application.Configuration.Validation
             return !(!phone.StartsWith("+79")
                      || !phone.Substring(1).All(c => Char.IsDigit(c)));
         }
-        
-
     }
 }

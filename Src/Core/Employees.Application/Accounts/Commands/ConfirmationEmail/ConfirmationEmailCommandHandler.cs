@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Employees.Application.Configuration.Commands;
 using Employees.Application.Configuration.Exceptions;
@@ -29,10 +30,11 @@ namespace Employees.Application.Accounts.Commands.ConfirmationEmail
 
             var account = await _accountsRepository.GetByEmailAsync(command.Email);
             account.ConfirmEmail();
+
             await _accountsRepository.SetIsEmailConfirm(account.IsEmailConfirm, account.Id);
             
-            _logger.LogInformation($"Email - {account.Email} подтвержден.");
-            
+            _logger.LogInformation("Email - {Email} подтвержден.", account.Email);
+
             return Unit.Value;
         }
     }

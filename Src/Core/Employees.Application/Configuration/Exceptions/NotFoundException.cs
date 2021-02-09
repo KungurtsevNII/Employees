@@ -1,5 +1,4 @@
 ﻿using System;
-using Employees.Domain;
 
 namespace Employees.Application.Configuration.Exceptions
 {

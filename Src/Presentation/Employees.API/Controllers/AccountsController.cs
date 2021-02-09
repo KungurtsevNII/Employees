@@ -5,6 +5,7 @@ using Employees.Application.Accounts.Commands.ConfirmationEmail;
 using Employees.Application.Accounts.Commands.RegisterAccount;
 using Employees.Application.Accounts.Queries.GetAccountsDetails;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Employees.API.Controllers
@@ -28,6 +29,8 @@ namespace Employees.API.Controllers
         /// <returns></returns>
         [Route("{id}")]
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public Task<AccountDetailsDto> GetAccountDetail(Guid id, CancellationToken ct = default)
         {
             return _mediator.Send(new GetAccountDetailsQuery { AccountId = id}, ct);
@@ -41,6 +44,8 @@ namespace Employees.API.Controllers
         /// <returns></returns>
         [Route("register")]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public Task RegisterAccount(
             [FromBody] RegisterAccountCommand request, 
             CancellationToken ct = default)
@@ -56,6 +61,8 @@ namespace Employees.API.Controllers
         /// <returns></returns>
         [Route("confirm-email")]
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public Task ConfirmEmail(
             [FromBody] ConfirmationEmailCommand request,
             CancellationToken ct = default
